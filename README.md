@@ -1,11 +1,11 @@
-[![Quarto Publish](https://github.com/vanHeemstraSystems/knowledge-management/actions/workflows/publish.yml/badge.svg)](https://github.com/vanHeemstraSystems/knowledge-management/actions/workflows/publish.yml)
+[![Quarto Publish](https://github.com/vanHeemstraSystems/lego-management/actions/workflows/publish.yml/badge.svg)](https://github.com/vanHeemstraSystems/lego-management/actions/workflows/publish.yml)
 
-knowledge-management
-# Knowledge Management
+lego-management
+# LEGO Management
 
-Can be read as "Knowledge Management" at https://app.gitbook.com/s/Rs3XPuVclvoj92Exb9AA/
+Can be read as "LEGO Management" at https://app.gitbook.com/s/Rs3XPuVclvoj92Exb9AA/
 
-Can be browsed as "Knowledge Management" at https://vanheemstrasystems.github.io/knowledge-management/
+Can be browsed as "LEGO Management" at https://vanheemstrasystems.github.io/lego-management/
 
 Documentation of this repository is automatically done with Quarto using GitHub Actions as described at https://github.com/vanHeemstraSystems/quarto-to-github-pages/blob/main/300/300/README.md
 
@@ -83,6 +83,8 @@ Based on "SQL Views With PostgreSQL" at https://towardsdatascience.com/sql-views
 
 Based on "How to use GraphQL Alias and Aggregation?" at https://bitquery.io/blog/graphql-alias-and-aggregation
 
+Based on "L3DI.js" at https://technicsphere.netlify.app/
+
 **NOTE**: Encode your (proxy) password to avoid clashes with unsupported characters (such as '@'), using https://meyerweb.com/eric/tools/dencoder/
 
 **NOTE**: We set the POSTGRES_DB environment variable in the docker file, otherwise it will use the POSTGRES_USER as database name.
@@ -119,7 +121,7 @@ Run as follows:
 
 ```
 $ cd containers/app
-$ docker-compose --file docker-compose.dev.yml --project-name knowledge-management-dev up --build -d
+$ docker-compose --file docker-compose.dev.yml --project-name lego-management-dev up --build -d
 ```
 
 **NOTE**: If you get the following error when browsing the Plotly service: 
@@ -142,7 +144,7 @@ Right-Click Servers > Register ... Server:
 
 In tab **General**:
 
-- Name: Use a name like "knowledge-management-dev" (if for development) - REQUIRED
+- Name: Use a name like "lego-management-dev" (if for development) - REQUIRED
 
 In tab **Connection**:
 
@@ -162,7 +164,7 @@ In tab **Connection**:
 
 See http://hostname:hasura-port-number/console/data/manage/connect
 
-- Database Display Name: **Knowledge Management - Dev** (for development)
+- Database Display Name: **LEGO Management - Dev** (for development)
 - Data Source Driver: **Postgres**
 - Connect Database Via: **Database URL**
 - Database URL: **postgresql://username:password@hostname:5432/databasename**, use the value of HASURA_GRAPHQL_DATABASE_URL_DEV/PROD as specified in .env file
@@ -187,9 +189,9 @@ Watch https://www.youtube.com/watch?v=ZGKQ0U18USU
 
 Bookmark https://hasura.io/learn/graphql/hasura/introduction/?pg=oss-console&plcmt=onboarding-checklist
 
-### Define the Schema in Postgres for Our Knowledge Management Service
+### Define the Schema in Postgres for Our LEGO Management Service
 
-The schema of our knowledge management service is based on Plotly and should follow a nesting alike below:
+The schema of our lego management service is based on Plotly and should follow a nesting alike below:
 
 ```
 	[
