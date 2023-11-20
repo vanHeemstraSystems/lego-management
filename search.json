@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "SUMMARY.html",
+    "href": "SUMMARY.html",
+    "title": "Table of contents",
+    "section": "",
+    "text": "Table of contents\n\nKnowledge Management"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Knowledge Management",
@@ -12,12 +19,5 @@
     "title": "About",
     "section": "",
     "text": "About this site"
-  },
-  {
-    "objectID": "SUMMARY.html",
-    "href": "SUMMARY.html",
-    "title": "Table of contents",
-    "section": "",
-    "text": "Table of contents\n\nKnowledge Management"
   }
 ]
