@@ -45,7 +45,7 @@
 
   </div>
 
-  <div class="toolContainer2 color3">
+  <div class="toolContainer2 color4">
     <a id="btn_Action" class="btn2">
       <svg class="icon">
         <use xlink:href="#icon-file-text"></use>
@@ -60,16 +60,15 @@
   <svg height="0">
     <defs>
       <symbol id="icon-plus" viewBox="0 0 32 32">
-        <path
-          d="M11 11v-11h1v11h11v1h-11v11h-1v-11h-11v-1h11z">
+        <path d="M11 11v-11h1v11h11v1h-11v11h-1v-11h-11v-1h11z">
         </path>
       </symbol>
       <symbol id="icon-minus" viewBox="0 0 32 32">
         <path d="M0 12v1h23v-1h-23z">
         </path>
       </symbol>
-      <symbol id="icon-file-text" viewBox="0 0 32 32">   
-        <path d="M22 24h-20v-24h14l6 6v18zm-7-23h-12v22h18v-16h-6v-6zm1 5h4.586l-4.586-4.586v4.586z"/>
+      <symbol id="icon-file-text" viewBox="0 0 32 32">
+        <path d="M22 24h-20v-24h14l6 6v18zm-7-23h-12v22h18v-16h-6v-6zm1 5h4.586l-4.586-4.586v4.586z" />
       </symbol>
     </defs>
   </svg>
@@ -126,7 +125,9 @@
       loader.load(modelPath, function (data) {
         var model = data.scene;
         model.scale.set(1, 1, 1);
-        //model.position.set(0,0,0);
+        model.position.set(0,0,0);
+
+        model.name = ""; // Correspond to instCSV's first line. '[""],'
 
         setupInst(model, instCSV);
         setupAction(model);
