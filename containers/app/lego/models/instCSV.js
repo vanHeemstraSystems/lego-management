@@ -13,14 +13,17 @@ MYAPP.instCSV = [
     [0, "buildDirection", "-x"],
     ["Part_3794.6"],
     ["Part_3024.14"],
+    [0, "rotate", "tree", 0, 1, 0, -90],
 
     [0, "buildDirection", "-z"],
     ["Part_3794.7"],
     ["Part_3024.13"],
+    [0, "rotate", "tree", 0, 1, 0, -90],
 
     [0, "buildDirection", "x"],
     ["Part_3794.5"],
     ["Part_3024.11"],
+    [0, "rotate", "tree", 0, 1, 0, -90],
 
     [0, "buildDirection", "z"],
     ["Part_3794.9"],
