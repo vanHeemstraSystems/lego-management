@@ -3,7 +3,7 @@ MYAPP.instCSV = [
 
     ["Part_3032.1"],
 
-    [0, "group", "tree"],
+    [0, "group", "tree", 20, 3.2, -12],
     [0, "buildDirection", "y"],
     ["Part_3062.2"],
     ["Part_4733.3"],
@@ -29,6 +29,7 @@ MYAPP.instCSV = [
     [0, "endGroup"],
     [0, "buildDirection", "y"],
     [0, "translate", "tree", 10],
+    [0, "rotate", "tree", 0, 1, 0, 90],
 
     [0, "group", "house"],
     [0, "buildDirection", "y"],
