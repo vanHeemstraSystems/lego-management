@@ -32,7 +32,6 @@ MYAPP.instCSV = [
     [0, "endGroup"],
     [0, "buildDirection", "y"],
     [0, "translate", "tree", 10],
-    [0, "rotate", "tree", 0, 1, 0, 90],
 
     [0, "group", "house"],
     [0, "buildDirection", "y"],
