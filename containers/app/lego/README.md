@@ -10,4 +10,6 @@ Construction explanation on YouTube as "L3DI_Tutorial" at https://www.youtube.co
 
 **RECOMMENDED**: An awesome demo by Ikaz Ik on YouTube as ""Simple Adjustment" - LEGO CGI Animation -" at https://www.youtube.com/watch?v=5kAHiDYYpMo
 
+Based on "HOW TO MAKE A CUSTOM DECORATION" at https://mecabricks.com/en/forum/topic/2925
+
 ![MEGA Bricks - LEGO-Azure](./img/MECA_Bricks_LEGO_Azure.png)
