@@ -1,6 +1,13 @@
 MYAPP.instCSV = [
     [""],
 
+    [0, "buildDirection", "y" ],
+    ["Part_3032.1"],
+    ["Part_3062.2"],
+    ["Part_4733.3"],
+    ["Part_3794.4"],
+    ["Part_3024.10"],
+
     [0, "buildDirection", "-x" ],
     ["Part_3794.6"],
     ["Part_3024.14"],
