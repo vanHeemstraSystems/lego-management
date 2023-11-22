@@ -12,14 +12,14 @@
 // --------------------------------------------------
 
 
-var MYAPP = MYAPP || {};
+var L3DI = L3DI || {};
 
-MYAPP.DEG2RAD = Math.PI / 180;
+L3DI.DEG2RAD = Math.PI / 180;
 
 //////////////////////////////////////////////////////////////////////
-// MYAPP/canvas
+// L3DI/canvas
 //////////////////////////////////////////////////////////////////////
-MYAPP.Canvas = function ( domElement, ops ) {
+L3DI.Canvas = function ( domElement, ops ) {
   var container = domElement || document.body;
   var ops = {
     backgroundColor: ops.backgroundColor || 0xffffff,
@@ -83,7 +83,7 @@ MYAPP.Canvas = function ( domElement, ops ) {
 
 }
 
-Object.assign( MYAPP.Canvas.prototype, {
+Object.assign( L3DI.Canvas.prototype, {
   resize: function () {
     var w = this._container.offsetWidth;
     var h = this._container.offsetHeight;
@@ -121,9 +121,9 @@ Object.assign( MYAPP.Canvas.prototype, {
 
 
 //////////////////////////////////////////////////////////////////////
-// MYAPP/mouseControls
+// L3DI/mouseControls
 //////////////////////////////////////////////////////////////////////
-MYAPP.MouseControls = function ( object3D, domElement, ops ) {
+L3DI.MouseControls = function ( object3D, domElement, ops ) {
   this.obj = object3D;
   this.el = domElement || document;
 
@@ -258,16 +258,16 @@ MYAPP.MouseControls = function ( object3D, domElement, ops ) {
 
 
 //////////////////////////////////////////////////////////////////////
-// MYAPP/inst
+// L3DI/inst
 //////////////////////////////////////////////////////////////////////
-MYAPP.createInst = function ( model, lines ) {
+L3DI.createInst = function ( model, lines ) {
   if ( lines == null ) {
     var lines = [];
     model.children.forEach( function ( obj ) {
       lines.push( [obj.name] );
     });
     console.log(
-      'MYAPP.instCSV = [\n'
+      'L3DI.instCSV = [\n'
       + '[0, "buildDir", 0,1,0 ],\n'
       + '["'
       + lines.join('"],\n["')
@@ -276,7 +276,7 @@ MYAPP.createInst = function ( model, lines ) {
     )
   }
 
-  var inst = new MYAPP.Inst();
+  var inst = new L3DI.Inst();
   var buildStroke = 50;
   var buildDir = new THREE.Vector3( 0, buildStroke, 0 );
   var curGroup = [ model ]; //Save current group nest. Top is 'model'.
@@ -294,10 +294,10 @@ MYAPP.createInst = function ( model, lines ) {
           THREE.SceneUtils.attach( obj, model, g );
           //obj.updateMatrixWorld();
         }
-        var lobj = new MYAPP.LegoObj( obj, buildDir );
+        var lobj = new L3DI.LegoObj( obj, buildDir );
         objs.push( lobj );
       });
-      if ( objs.length > 0 ) inst.addStep( new MYAPP.Step( objs ) );
+      if ( objs.length > 0 ) inst.addStep( new L3DI.Step( objs ) );
     }
   });
 
@@ -381,7 +381,7 @@ MYAPP.createInst = function ( model, lines ) {
       case 't':
         var g = model.getObjectByName( line[2] );
         var v = buildDir.clone().normalize().multiplyScalar( line[3] );
-        var step = new MYAPP.Step_translate( g, v );
+        var step = new L3DI.Step_translate( g, v );
         groupSteps[ g.name ].push( step );
         inst.addStep( step );
         break;
@@ -391,9 +391,9 @@ MYAPP.createInst = function ( model, lines ) {
         var g = model.getObjectByName( line[2] );
         var q = new THREE.Quaternion().setFromAxisAngle(
           new THREE.Vector3( line[3],line[4],line[5] ).normalize(),
-          line[6] * MYAPP.DEG2RAD
+          line[6] * L3DI.DEG2RAD
         );
-        var step = new MYAPP.Step_rotate( g, q );
+        var step = new L3DI.Step_rotate( g, q );
         groupSteps[ g.name ].push( step );
         inst.addStep( step );
         break;
@@ -436,7 +436,7 @@ MYAPP.createInst = function ( model, lines ) {
 }
 
 
-MYAPP.LegoObj = function ( obj, dir ) {
+L3DI.LegoObj = function ( obj, dir ) {
   this.obj = obj; //THREE.Object3D
   var buildDir = dir || new THREE.Vector3( 0, 50, 0 );
 
@@ -445,7 +445,7 @@ MYAPP.LegoObj = function ( obj, dir ) {
   this.tween = undefined; //TWEEN.Tween
 }
 
-Object.assign( MYAPP.LegoObj.prototype, {
+Object.assign( L3DI.LegoObj.prototype, {
   playForward: function () {
     if ( this.tween ) this.tween.stop();
     this.obj.visible = true;
@@ -474,11 +474,11 @@ Object.assign( MYAPP.LegoObj.prototype, {
 });
 
 
-MYAPP.Step = function ( objList ) {
+L3DI.Step = function ( objList ) {
   this.objList = objList || []; //[ LegoObj, ... ]
 }
 
-Object.assign( MYAPP.Step.prototype, {
+Object.assign( L3DI.Step.prototype, {
   type: 'build',
 
   playForward: function () {
@@ -496,14 +496,14 @@ Object.assign( MYAPP.Step.prototype, {
 });
 
 
-MYAPP.Step_translate = function ( obj, v ) {
+L3DI.Step_translate = function ( obj, v ) {
   this.obj = obj; //THREE.Object3D
   this.pos0 = undefined; //{ x:0, y:0, z:0 };
   this.pos1 = { x: v.x, y: v.y, z: v.z };
   this.tween = undefined; //TWEEN.Tween
 }
 
-Object.assign( MYAPP.Step_translate.prototype, {
+Object.assign( L3DI.Step_translate.prototype, {
   type: 'translate',
 
   playForward: function () {
@@ -531,14 +531,14 @@ Object.assign( MYAPP.Step_translate.prototype, {
 });
 
 
-MYAPP.Step_rotate = function ( obj, q ) {
+L3DI.Step_rotate = function ( obj, q ) {
   this.obj = obj; //THREE.Object3D
   this.q0 = undefined; //THREE.Quaternion
   this.q1 = q;
   this.tween = undefined; //TWEEN.Tween
 }
 
-Object.assign( MYAPP.Step_rotate.prototype, {
+Object.assign( L3DI.Step_rotate.prototype, {
   type: 'rotate',
 
   playForward: function () {
@@ -586,7 +586,7 @@ Object.assign( MYAPP.Step_rotate.prototype, {
 });
 
 
-MYAPP.Inst = function ( steps ) {
+L3DI.Inst = function ( steps ) {
   this.steps = steps || [[]]; //[ [], Step, Step, ... ]
                               //steps[0] is empty (or pivot obj?)
   //this.stepMin = 1;
@@ -595,7 +595,7 @@ MYAPP.Inst = function ( steps ) {
   this.curStep = this.steps.length - 1;
 }
 
-Object.assign( MYAPP.Inst.prototype, {
+Object.assign( L3DI.Inst.prototype, {
   getStepMin: function () {
     //return this.stepMin;
     return 1;
@@ -638,9 +638,9 @@ Object.assign( MYAPP.Inst.prototype, {
 
 
 //////////////////////////////////////////////////////////////////////
-// MYAPP/setupSpinner
+// L3DI/setupSpinner
 //////////////////////////////////////////////////////////////////////
-MYAPP.setupSpinner = function ( target, color ) {
+L3DI.setupSpinner = function ( target, color ) {
   var opts = {
     lines: 13, // The number of lines to draw
     length: 38, // The length of each line
