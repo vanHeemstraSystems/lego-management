@@ -89,20 +89,20 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.3.0/Tween.min.js"></script>
-  <script src="js/script.js"></script>
+  <script src="js/L3DI.js"></script>
   <script src="models/PAUSED.instCSV.js"></script>
 
   <script>
     window.addEventListener("load", function () {
       var modelPath = 'models/PAUSED.model.dae';
       // var modelPath = 'models/lego-azure.dae';
-      var instCSV = MYAPP.instCSV || undefined;
+      var instCSV = L3DI.instCSV || undefined;
 
       var canvasContainer = document.getElementById("canvasContainer");
 
-      var spinner = MYAPP.setupSpinner(canvasContainer, '#ffffff');
+      var spinner = L3DI.setupSpinner(canvasContainer, '#ffffff');
 
-      var canvas = new MYAPP.Canvas(canvasContainer, {
+      var canvas = new L3DI.Canvas(canvasContainer, {
         backgroundColor: 0x55acfc,
         cameraDistance: 300,
         fov: 80,
@@ -153,7 +153,7 @@
 
 
     function setupInst(model, instCSV) {
-      var inst = MYAPP.createInst(model, instCSV);
+      var inst = L3DI.createInst(model, instCSV);
 
       var rangeB = document.getElementById("rangeB");
       rangeB.min = inst.getStepMin();

@@ -1,4 +1,4 @@
-MYAPP.instCSV = [
+L3DI.instCSV = [
     [""],
 
     [0, "buildDirection", "y"],
