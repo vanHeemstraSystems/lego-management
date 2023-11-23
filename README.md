@@ -124,14 +124,14 @@ $ cd containers/app
 $ docker-compose --file docker-compose.dev.yml --project-name lego-management-dev up --build -d
 ```
 
-**NOTE**: If you get the following error when browsing the Plotly service: 
+**NOTE**: If you get the following error when browsing the Lego service: 
 
 ``````
 Unhandled Runtime Error
 ApolloError: Failed to fetch
 ``````
 
-Know that this is most likely caused by the Hasura service not being up and running yet, therefor not able to sent the requested data to the Plotly Service. To fix it, start the Hasura service.
+Know that this is most likely caused by the Hasura service not being up and running yet, therefor not able to sent the requested data to the Lego Service. To fix it, start the Hasura service.
 
 **NOTE**: When you try to login to PostgreSQL database via **pgAdmin** (Recommended), use the following credentials:
 
@@ -191,7 +191,7 @@ Bookmark https://hasura.io/learn/graphql/hasura/introduction/?pg=oss-console&plc
 
 ### Define the Schema in Postgres for Our LEGO Management Service
 
-The schema of our lego management service is based on Plotly and should follow a nesting alike below:
+The schema of our lego management service is based on Lego's MECABrick's dae export file format and should follow a nesting alike below:
 
 ```
 	[
@@ -212,7 +212,7 @@ The schema of our lego management service is based on Plotly and should follow a
      },
   ]          
 ```
-Example of a schema for Plotly nodes.
+Example of a schema for Lego nodes.
 
 ```
 	 [
@@ -226,7 +226,7 @@ Example of a schema for Plotly nodes.
      }
   ]      
 ```
-Example of a schema for Plotly links.
+Example of a schema for Lego links.
 
 Taken together, here is the schema for a map (which combines nodes and links):
 
@@ -263,7 +263,7 @@ Taken together, here is the schema for a map (which combines nodes and links):
   ]
 
 ```
-Example of a schema for a Plotly plot.
+Example of a schema for a Lego brick.
 
 
 Nodes are unique, they can only exist once (with the same unique identifier).
@@ -278,15 +278,15 @@ In creating the tables & views see the following:
 
 - Links schema: see containers/app/postgresql/sql/
 
-- Plots schema: see containers/app/postgresql/sql/
+- Bricks schema: see containers/app/postgresql/sql/
 
-Plots are a collection of nodes and links.
+Bricks are a collection of nodes and links.
 
 In hasura you can - after having connected to the database and tracked the views - now run a query like below to get a JSON output:
 
 ```
-query fetchFirstPlot {
-  first_plot: plots_view(where: {name: {_eq: "first"}}) {
+query fetchFirstBrick {
+  first_brick: bricks_view(where: {name: {_eq: "first"}}) {
     nodes {
       id
       position
@@ -304,7 +304,7 @@ Example outcome of above query:
 ```
 {
   "data": {
-    "first_plot": [
+    "first_brick": [
       {
         "nodes": [
           {
@@ -347,13 +347,13 @@ Example outcome of above query:
 
 **TIP**: To format the code, select the code and in Visual Studio Code (after installing the Prettier extension) combine the following keys: CTRL + SHIFT + P. A dialogue window will ask you for what command you want to execute, type "format" and from the dropdown options choose "prettier". This will format the selected code.
 
-To be more precise in which file(s) to format, for example when in ```containers/app/plotly``` you can run the following:
+To be more precise in which file(s) to format, for example when in ```containers/app/lego``` you can run the following:
 
 ```
 $ npx prettier --write src/app/page.tsx
 ```
 
-It will take the configuration from ```containers/app/plotly/.prettierrc```
+It will take the configuration from ```containers/app/lego/.prettierrc```
 
 See for documentation on **Prettier**, https://prettier.io/docs/en/index.html
 
