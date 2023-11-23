@@ -1,3 +1,3 @@
 # Table of contents
 
-* [Knowledge Management](README.md)
+* [LEGO Management](README.md)

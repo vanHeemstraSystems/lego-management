@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Knowledge Management"
+  title: "LEGO Management"
   navbar:
     left:
       - href: index.qmd

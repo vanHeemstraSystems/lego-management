@@ -191,11 +191,11 @@ services:
     depends_on:
       - "postgresql"
 
-  plotly:
+  lego:
     secrets:
       - proxy_password
     build:
-      context: ./plotly
+      context: ./lego
       dockerfile: Dockerfile.prod
       args: # from env_file
         UNIQUE_NAMESPACE: ${UNIQUE_NAMESPACE}
@@ -207,7 +207,7 @@ services:
         NODE_ENV: development
     env_file:
       - .env
-    container_name: ${UNIQUE_NAMESPACE}-plotly-prod
+    container_name: ${UNIQUE_NAMESPACE}-lego-prod
     security_opt:
       - no-new-privileges:true
     privileged: true
