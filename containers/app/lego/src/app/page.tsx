@@ -6,7 +6,7 @@ import { useApollo } from "../lib/apollo";
 import Data from "../components/dynamicComponents";
 import { LinkWrapper } from "./linkWrapper";
 
-export default function Home(pageProps:any) {
+export default function Home(pageProps: any) {
   const client = useApollo(pageProps.initialApolloProps);
   return (
     <ApolloProvider client={client}>

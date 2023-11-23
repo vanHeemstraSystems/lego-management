@@ -3,70 +3,44 @@ import { gql, useQuery } from "@apollo/client";
 import initializeApollo from "../lib/apollo";
 import CanvasContainer from "./canvasContainer";
 import ToolContainer from "./toolContainer";
-// more
 import { connect } from "react-redux";
+import { Helmet } from "react-helmet";
 import "./playground.scss";
 
 type PlaygroundProps = {
     name: string;
-    //map_nodes?: Object;
-    //newMaps?: any;
-    //newNodes?: Array<Object>;
-    //newLinks?: any;
-    //generateEvent?: Function;
     children?: React.ReactNode;
 };
 
 type PlaygroundState = {
     name: string;
-    //map_nodes: Object;
-    //newMaps: any;
-    //newNodes: Array<Object>;
-    //newLinks: any;
 };
-
-// more
 
 type Props = {
-    //graph: dia.Graph;
-    graph: []; // temporarily, can be removed later
-    //paperOptions: joint.dia.Paper.Options;
     name: string;
-    //nodes: Array<Node>;
-    //links: Array<dia.Link>;
-    //paperRef: (paper: dia.Paper) => void;
 };
-
-// more  
 
 const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
 
     console.log("+++++++++ props: ", props, " +++++++++++"); // FOR TESTING ONLY
 
-    // Temporarily, can be removed later
-    let graph:any = [];
-
     useEffect(() => {
         console.log("Start of useEffect()");
         console.log("End of useEffect()");
-    }, [graph]);
+    });
 
     return (
         <>
+            <Helmet>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.3.0/Tween.min.js"></script>
+            </Helmet>
             Hello from Playground named {props.name}!
-            <CanvasContainer/>
-            <ToolContainer/>
+            <CanvasContainer />
+            <ToolContainer />
         </>
     );
 };
 
-
-function mapStateToProps(state: PlaygroundState) {
-    // more
-}
-
-function mapDispatchToProps(dispatch: any) {
-    // more
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Playground);
+export default Playground;
