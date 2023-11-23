@@ -1,1 +1,16 @@
-.toolContainer {}
+.toolContainer {
+    z-index: 100;
+    position: absolute;
+    bottom: 0px;
+    /*top: calc(var(--vh, 1vh) * 79);*/
+    left: 0px;
+    width: 100%;
+    height: 21vh;
+    /*height: calc(var(--vh, 1vh) * 21);*/
+    min-height: 22px;
+    padding-bottom: 1vh;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

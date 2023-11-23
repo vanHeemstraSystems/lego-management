@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useMemo } from "react";
+import RangeContainer from "./rangeContainer";
 // more
 import "./toolContainer.scss";
 
@@ -8,35 +9,8 @@ const ToolContainer = () => {
 
     return (
         <div id="toolContainer" className="toolContainer">
-
-            <div className="rangeContainer color1">
-                <a id="btn_RangeA_Minus" className="btn">
-                    <svg className="icon">
-                        <use xlinkHref="#icon-minus"></use>
-                    </svg>
-                </a>
-                <input type="range" id="rangeA" className="range" />
-                <a id="btn_RangeA_Plus" className="btn">
-                    <svg className="icon">
-                        <use xlinkHref="#icon-plus"></use>
-                    </svg>
-                </a>
-            </div>
-
-            <div className="rangeContainer color2">
-                <a id="btn_RangeB_Minus" className="btn">
-                    <svg className="icon">
-                        <use xlinkHref="#icon-minus"></use>
-                    </svg>
-                </a>
-                <input type="range" id="rangeB" className="range" />
-                <a id="btn_RangeB_Plus" className="btn">
-                    <svg className="icon">
-                        <use xlinkHref="#icon-plus"></use>
-                    </svg>
-                </a>
-            </div>
-
+            <RangeContainer color="color1"/>
+            <RangeContainer color="color2" />
             <svg height="0">
                 <defs>
                     <symbol id="icon-plus" viewBox="0 0 32 32">
@@ -52,9 +26,7 @@ const ToolContainer = () => {
                     </symbol>
                 </defs>
             </svg>
-
         </div>
-
     );
 };
 
