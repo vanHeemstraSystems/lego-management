@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useMemo } from "react";
 import { gql, useQuery } from "@apollo/client";
 import initializeApollo from "../lib/apollo";
+import CanvasContainer from "./canvasContainer";
 // more
 import { connect } from "react-redux";
 import "./playground.scss";
@@ -52,6 +53,7 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
     return (
         <>
             Hello from Playground named {props.name}!
+            <CanvasContainer/>
         </>
     );
 };
