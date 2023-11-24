@@ -477,8 +477,25 @@ Object.assign(L3DI.LegoObj.prototype, {
 //////////////////////////////////////////////////////////////////////
 L3DI.Step = function (objList) {
   console.log("Inside L3DI.Step");
-  // MORE ...
+  this.objList = objList || []; //[ LegoObj, ... ]
 }
+
+Object.assign( L3DI.Step.prototype, {
+  type: 'build',
+
+  playForward: function () {
+    this.objList.forEach( function ( obj ) {
+      obj.playForward();
+    });
+  },
+
+  playBackward: function () {
+    this.objList.forEach( function ( obj ) {
+      obj.playBackward();
+    });
+  },
+
+});
 
 //////////////////////////////////////////////////////////////////////
 // L3DI/Step_translate
