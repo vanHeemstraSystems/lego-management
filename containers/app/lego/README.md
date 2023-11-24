@@ -6,6 +6,8 @@ Based on "How to start using React and Three.js in a few minutes" at https://dev
 
 Based on "How to add script tag to React/JSX" at https://www.codingdeft.com/posts/react-add-script/
 
+Based on "Solve “document is not defined” errors in Next.js" at https://www.webtutpro.com/solve-document-is-not-defined-errors-in-next-js-26fea778b868
+
 Based on "L3DI.js - Lego 3D Instruction" at https://l3di.netlify.app/
 
 Based on "Floor Planner" at https://www.floorplanner.com who created "ColladaLoader" at https://gist.github.com/funnylookinhat/5155628
