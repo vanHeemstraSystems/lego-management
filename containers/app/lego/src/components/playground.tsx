@@ -29,7 +29,7 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
         console.log("Start of useEffect()");
 
         var modelPath = '../models/lego-azure.dae';
-        // var instCSV = L3DI.instCSV || undefined;
+        var instCSV = L3DI.instCSV || undefined;
 
         // var canvasContainer = document.getElementById("canvasContainer");
         // var spinner = L3DI.setupSpinner(canvasContainer, '#ffffff');
