@@ -1,5 +1,6 @@
 // --------------------------------------------------
 // Copyright (c) 2019 lk.lkaz
+// Updated 2023 Willem van Heemstra
 // This software is released under the MIT License.
 // http://opensource.org/licenses/mit-license.php
 // --------------------------------------------------
