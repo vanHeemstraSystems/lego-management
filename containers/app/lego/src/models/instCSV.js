@@ -1,3 +1,5 @@
+import L3DI from "../lib/L3DI";
+
 L3DI.instCSV = [
     [""],
 
@@ -14,3 +16,5 @@ L3DI.instCSV = [
     ["Part.0"],
 
 ];
+
+export default L3DI.instCSV
