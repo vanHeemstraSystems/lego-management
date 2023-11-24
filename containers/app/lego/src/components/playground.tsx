@@ -35,6 +35,17 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
         var canvasContainer = document.getElementById("canvasContainer");
         var spinner = L3DI.setupSpinner(canvasContainer, '#ffffff');
 
+        var canvas = new L3DI.Canvas(canvasContainer, {
+           backgroundColor: 0x55acfc,
+           cameraDistance: 300,
+           fov: 80,
+           zoomMin: 0.5,
+           zoomMax: 3.0,
+           initialRotation: [35, 0, 0],
+        });
+
+        // More
+
         console.log("End of useEffect()");
     }, []);
 
