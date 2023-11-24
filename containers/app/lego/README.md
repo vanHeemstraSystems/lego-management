@@ -4,6 +4,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 Based on "How to start using React and Three.js in a few minutes" at https://dev.to/omher/how-to-start-using-react-and-threejs-in-a-few-minutes-2h6g
 
+Based on "How to add script tag to React/JSX" at https://www.codingdeft.com/posts/react-add-script/
+
 Based on "L3DI.js - Lego 3D Instruction" at https://l3di.netlify.app/
 
 Based on "Floor Planner" at https://www.floorplanner.com who created "ColladaLoader" at https://gist.github.com/funnylookinhat/5155628

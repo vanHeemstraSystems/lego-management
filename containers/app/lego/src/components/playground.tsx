@@ -4,10 +4,7 @@ import initializeApollo from "../lib/apollo";
 import CanvasContainer from "./canvasContainer";
 import ToolContainer from "./toolContainer";
 import { connect } from "react-redux";
-import { Helmet } from "react-helmet";
-import * as THREE from "three"; // Used by L3DI
-import Spinner from "spin"; // Used by L3DI
-import Tween from "@tweenjs/tween.js" // Used by L3DI
+import L3DI from "../lib/L3DI";
 import "./playground.scss";
 
 type PlaygroundProps = {
@@ -27,16 +24,22 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
 
     console.log("+++++++++ props: ", props, " +++++++++++"); // FOR TESTING ONLY
 
+    // See https://www.codingdeft.com/posts/react-add-script/
     useEffect(() => {
         console.log("Start of useEffect()");
+
+        var modelPath = '../models/lego-azure.dae';
+        var instCSV = L3DI.instCSV || undefined;
+
+        var canvasContainer = document.getElementById("canvasContainer");
+
+        var spinner = L3DI.setupSpinner(canvasContainer, '#ffffff');
+
         console.log("End of useEffect()");
-    });
+    }, []);
 
     return (
         <>
-            <Helmet>
-                <script src="../js/L3DI.js"></script>
-            </Helmet>
             <p>Hello from Playground named {props.name}!</p>
             <CanvasContainer />
             <ToolContainer />

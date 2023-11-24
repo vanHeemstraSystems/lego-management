@@ -12,9 +12,12 @@
 // I recommend you to use this only for your hobby.
 // --------------------------------------------------
 
+import * as THREE from "three";
+import * as THREE_ADDONS from "three-addons";
+import { Spinner } from "spin";
+import { Tween } from "@tweenjs/tween.js";
 
 var L3DI = L3DI || { REVISION: "1" };
-
 
 L3DI.DEG2RAD = Math.PI / 180;
 
@@ -305,7 +308,7 @@ L3DI.createInst = function ( model, lines ) {
         var obj = model.getObjectByName( name );
         if ( curGroup.length > 1 ) {
           var g = curGroup[ curGroup.length - 1 ];
-          THREE.SceneUtils.attach( obj, model, g );
+          THREE_ADDONS.SceneUtils.attach( obj, model, g );
           //obj.updateMatrixWorld();
         }
         var lobj = new L3DI.LegoObj( obj, buildDir );
@@ -386,7 +389,7 @@ L3DI.createInst = function ( model, lines ) {
         line.slice(2).forEach( function ( name ) {
           var obj = model.getObjectByName( name );
           var g = curGroup[ curGroup.length - 1 ];
-          THREE.SceneUtils.attach( obj, model, g );
+          THREE_ADDONS.SceneUtils.attach( obj, model, g );
           //obj.updateMatrixWorld();
         });
         break;
@@ -681,3 +684,5 @@ L3DI.setupSpinner = function ( target, color ) {
 
   return spinner;
 }
+
+export default L3DI
