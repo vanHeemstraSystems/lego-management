@@ -502,8 +502,38 @@ Object.assign( L3DI.Step.prototype, {
 //////////////////////////////////////////////////////////////////////
 L3DI.Step_translate = function (obj, v) {
   console.log("Inside L3DI.Step_translate");
-  // MORE ...
+  this.obj = obj; //THREE.Object3D
+  this.pos0 = undefined; //{ x:0, y:0, z:0 };
+  this.pos1 = { x: v.x, y: v.y, z: v.z };
+  this.tween = undefined; //TWEEN.Tween
 }
+
+Object.assign( L3DI.Step_translate.prototype, {
+  type: 'translate',
+
+  playForward: function () {
+    if ( this.tween ) this.tween.stop();
+    this.tween = new TWEEN.Tween( this.obj.position )
+      .to( this.pos0, 800 )
+      .easing( TWEEN.Easing.Quadratic.Out )
+      .onComplete( function () {
+        this.tween = undefined;
+      }.bind(this) )
+      .start();
+  },
+
+  playBackward: function () {
+    if ( this.tween ) this.tween.stop();
+    this.tween = new TWEEN.Tween( this.obj.position )
+      .to( this.pos1, 300 )
+      .easing( TWEEN.Easing.Quadratic.Out )
+      .onComplete( function () {
+        this.tween = undefined;
+      }.bind(this) )
+      .start();
+  },
+
+});
 
 //////////////////////////////////////////////////////////////////////
 // L3DI/Step_rotate
