@@ -262,9 +262,173 @@ L3DI.createInst = function (model, lines) {
   if (lines == null) {
     var lines = [];
     model.children.foreach(function (obj) {
-
-    })
+      lines.push([obj.name]);
+    });
+    console.log(
+      'L3DI.instCSV = [\n'
+      + '[0, "buildDir", 0,1,0 ],\n'
+      + '["'
+      + lines.join('"],\n["')
+      + '"],\n'
+      + '];'
+    )
   }
+
+  var inst = new L3DI.Inst();
+  var buildStroke = 50;
+  var buildDir = new THREE.Vector3(0, buildStroke, 0);
+  var curGroup = [model]; //Save current group nest. Top is 'model'.
+  var groupSteps = {}; //key:group.name, val:[step_translate/rotate,...]
+
+  lines.forEach(function (line) {
+    if (line[0] === 0) { //LDraw-like comment style
+      parseCommand(line);
+    } else {
+      var objs = [];
+      line.forEach(function (name) {
+        var obj = model.getObjectByName(name);
+        if (curGroup.length > 1) {
+          var g = curGroup[curGroup.length - 1];
+          THREE_ADDONS.SceneUtils.attach(obj, model, g);
+          //obj.updateMatrixWorld();
+        }
+        var lobj = new L3DI.LegoObj(obj, buildDir);
+        objs.push(lobj);
+      });
+      if (objs.length > 0) inst.addStep(new L3DI.Step(objs));
+    }
+  });
+
+  function parseCommand(line) {
+    switch (line[1].toLowerCase()) {
+      case 'builddirection':
+      case 'builddir':
+      case 'bd':
+        if (typeof (line[2]) == 'number') {
+          setBuildDir(new THREE.Vector3(line[2], line[3], line[4]));
+        } else {
+          var v = new THREE.Vector3(0, 1, 0);
+          switch (line[2].toLowerCase()) {
+            case 'x':
+              v.set(1, 0, 0);
+              break;
+            case 'y':
+              v.set(0, 1, 0);
+              break;
+            case 'z':
+              v.set(0, 0, 1);
+              break;
+            case '-x':
+              v.set(-1, 0, 0);
+              break;
+            case '-y':
+              v.set(0, -1, 0);
+              break;
+            case '-z':
+              v.set(0, 0, -1);
+              break;
+          }
+
+          if (line[3] != null) {
+            var obj = model.getObjectByName(line[3]);
+            v.applyQuaternion(obj.quaternion);
+          }
+
+          setBuildDir(v);
+
+        }
+        break;
+
+      case 'buildstroke':
+      case 'bs':
+        buildStroke = line[2];
+        //buildDir.normalize().multiplyScalar( buildStroke );
+        setBuildDir();
+        break;
+
+      case 'group':
+      case 'g':
+        var g = new THREE.Group();
+        g.name = line[2];
+        if (line[3] != null) {
+          g.position.set(line[3], line[4], line[5]);
+        }
+        curGroup[curGroup.length - 1].add(g);
+        g.updateMatrixWorld();
+        curGroup.push(g);
+        groupSteps[g.name] = [];
+        break;
+
+      case 'endgroup':
+      case 'eg':
+        //case 'ge':
+        curGroup.pop();
+        break;
+
+      case 'groupitem':
+      case 'gi':
+        line.slice(2).forEach(function (name) {
+          var obj = model.getObjectByName(name);
+          var g = curGroup[curGroup.length - 1];
+          THREE_ADDONS.SceneUtils.attach(obj, model, g);
+          //obj.updateMatrixWorld();
+        });
+        break;
+
+      case 'translate':
+      case 't':
+        var g = model.getObjectByName(line[2]);
+        var v = buildDir.clone().normalize().multiplyScalar(line[3]);
+        var step = new L3DI.Step_translate(g, v);
+        groupSteps[g.name].push(step);
+        inst.addStep(step);
+        break;
+
+      case 'rotate':
+      case 'r':
+        var g = model.getObjectByName(line[2]);
+        var q = new THREE.Quaternion().setFromAxisAngle(
+          new THREE.Vector3(line[3], line[4], line[5]).normalize(),
+          line[6] * L3DI.DEG2RAD
+        );
+        var step = new L3DI.Step_rotate(g, q);
+        groupSteps[g.name].push(step);
+        inst.addStep(step);
+        break;
+
+    }
+  }
+
+  for (var groupName in groupSteps) {
+    var steps = groupSteps[groupName];
+    var g = model.getObjectByName(groupName);
+    var q = g.quaternion.clone();
+    var p = g.position.clone();
+    for (var i = steps.length - 1; i >= 0; i--) {
+      var step = steps[i];
+      switch (step.type) {
+        case 'translate':
+          step.pos0 = { x: p.x, y: p.y, z: p.z };
+          p.add(step.pos1);
+          step.pos1 = { x: p.x, y: p.y, z: p.z };
+          break;
+        case 'rotate':
+          step.q0 = q.clone();
+          q.multiply(step.q1);
+          step.q1 = q.clone();
+          break;
+      }
+    }
+  }
+
+  function setBuildDir(vec3) {
+    if (vec3 != null) {
+      buildDir.copy(vec3);
+    }
+    buildDir.normalize().multiplyScalar(buildStroke);
+  }
+
+  return inst;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -272,8 +436,41 @@ L3DI.createInst = function (model, lines) {
 //////////////////////////////////////////////////////////////////////
 L3DI.LegoObj = function (obj, dir) {
   console.log("Inside L3DI.LegoObj");
-  // MORE ...
+  this.obj = obj; //THREE.Object3D
+  var buildDir = dir || new THREE.Vector3(0, 50, 0);
+
+  this.pos0 = new THREE.Vector3().copy(this.obj.position);
+  this.pos1 = this.pos0.clone().add(buildDir);
+  this.tween = undefined; //TWEEN.Tween
 }
+
+Object.assign(L3DI.LegoObj.prototype, {
+  playForward: function () {
+    if (this.tween) this.tween.stop();
+    this.obj.visible = true;
+    this.tween = new TWEEN.Tween(this.obj.position)
+      .to(this.pos0, 1000)
+      //.easing( TWEEN.Easing.Bounce.Out )
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .onComplete(function () {
+        this.tween = undefined;
+      }.bind(this))
+      .start();
+  },
+
+  playBackward: function () {
+    if (this.tween) this.tween.stop();
+    this.tween = new TWEEN.Tween(this.obj.position)
+      .to(this.pos1, 300)
+      .easing(TWEEN.Easing.Linear.None)
+      .onComplete(function () {
+        this.tween = undefined;
+        this.obj.visible = false;
+      }.bind(this))
+      .start();
+  },
+
+});
 
 //////////////////////////////////////////////////////////////////////
 // L3DI/Step
@@ -304,8 +501,54 @@ L3DI.Step_rotate = function (obj, q) {
 //////////////////////////////////////////////////////////////////////
 L3DI.Inst = function (steps) {
   console.log("Inside L3DI.Inst");
-  // MORE ...
+  this.steps = steps || [[]]; //[ [], Step, Step, ... ]
+  //steps[0] is empty (or pivot obj?)
+  //this.stepMin = 1;
+  //this.stepMax = this.steps.length - 1;
+  //this.stepStep = 1;
+  this.curStep = this.steps.length - 1;
 }
+
+Object.assign(L3DI.Inst.prototype, {
+  getStepMin: function () {
+    //return this.stepMin;
+    return 1;
+  },
+
+  getStepMax: function () {
+    //return this.stepMax;
+    return this.steps.length - 1;
+  },
+
+  getStepStep: function () {
+    //return this.stepStep;
+    return 1;
+  },
+
+  getCurStep: function () {
+    return this.curStep;
+  },
+
+  addStep: function (step) {
+    this.steps.push(step);
+    this.curStep += 1;
+  },
+
+  setStep: function (n) { //? no-tween option?
+    var n = Math.round(n);
+    if (n > this.curStep) {
+      for (var i = this.curStep + 1; i <= n; i++) {
+        this.steps[i].playForward();
+      }
+    } else {
+      for (var i = this.curStep; i > n; i--) {
+        this.steps[i].playBackward();
+      }
+    }
+    this.curStep = n;
+  },
+
+});
 
 //////////////////////////////////////////////////////////////////////
 // L3DI/setupSpinner
