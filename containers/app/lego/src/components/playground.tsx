@@ -5,9 +5,9 @@ import CanvasContainer from "./canvasContainer";
 import ToolContainer from "./toolContainer";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
-import * as THREE from "three";
-import Spinner from "spin";
-import Tween from "@tweenjs/tween.js"
+import * as THREE from "three"; // Used by L3DI
+import Spinner from "spin"; // Used by L3DI
+import Tween from "@tweenjs/tween.js" // Used by L3DI
 import "./playground.scss";
 
 type PlaygroundProps = {
