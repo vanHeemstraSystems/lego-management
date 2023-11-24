@@ -480,17 +480,17 @@ L3DI.Step = function (objList) {
   this.objList = objList || []; //[ LegoObj, ... ]
 }
 
-Object.assign( L3DI.Step.prototype, {
+Object.assign(L3DI.Step.prototype, {
   type: 'build',
 
   playForward: function () {
-    this.objList.forEach( function ( obj ) {
+    this.objList.forEach(function (obj) {
       obj.playForward();
     });
   },
 
   playBackward: function () {
-    this.objList.forEach( function ( obj ) {
+    this.objList.forEach(function (obj) {
       obj.playBackward();
     });
   },
@@ -508,28 +508,28 @@ L3DI.Step_translate = function (obj, v) {
   this.tween = undefined; //TWEEN.Tween
 }
 
-Object.assign( L3DI.Step_translate.prototype, {
+Object.assign(L3DI.Step_translate.prototype, {
   type: 'translate',
 
   playForward: function () {
-    if ( this.tween ) this.tween.stop();
-    this.tween = new TWEEN.Tween( this.obj.position )
-      .to( this.pos0, 800 )
-      .easing( TWEEN.Easing.Quadratic.Out )
-      .onComplete( function () {
+    if (this.tween) this.tween.stop();
+    this.tween = new TWEEN.Tween(this.obj.position)
+      .to(this.pos0, 800)
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .onComplete(function () {
         this.tween = undefined;
-      }.bind(this) )
+      }.bind(this))
       .start();
   },
 
   playBackward: function () {
-    if ( this.tween ) this.tween.stop();
-    this.tween = new TWEEN.Tween( this.obj.position )
-      .to( this.pos1, 300 )
-      .easing( TWEEN.Easing.Quadratic.Out )
-      .onComplete( function () {
+    if (this.tween) this.tween.stop();
+    this.tween = new TWEEN.Tween(this.obj.position)
+      .to(this.pos1, 300)
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .onComplete(function () {
         this.tween = undefined;
-      }.bind(this) )
+      }.bind(this))
       .start();
   },
 
@@ -540,8 +540,58 @@ Object.assign( L3DI.Step_translate.prototype, {
 //////////////////////////////////////////////////////////////////////
 L3DI.Step_rotate = function (obj, q) {
   console.log("Inside L3DI.Step_rotate");
-  // MORE ...
+  this.obj = obj; //THREE.Object3D
+  this.q0 = undefined; //THREE.Quaternion
+  this.q1 = q;
+  this.tween = undefined; //TWEEN.Tween
 }
+
+Object.assign(L3DI.Step_rotate.prototype, {
+  type: 'rotate',
+
+  playForward: function () {
+    if (this.tween) this.tween.stop();
+    var q = this.obj.quaternion.clone();
+    var cords = { t: 0 };
+    this.tween = new TWEEN.Tween(cords)
+      .to({ t: 1 }, 800)
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .onUpdate(function () {
+        THREE.Quaternion.slerp(
+          q,
+          this.q0,
+          this.obj.quaternion,
+          cords.t
+        );
+      }.bind(this))
+      .onComplete(function () {
+        this.tween = undefined;
+      }.bind(this))
+      .start();
+  },
+
+  playBackward: function () {
+    if (this.tween) this.tween.stop();
+    var q = this.obj.quaternion.clone();
+    var cords = { t: 0 };
+    this.tween = new TWEEN.Tween(cords)
+      .to({ t: 1 }, 800)
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .onUpdate(function () {
+        THREE.Quaternion.slerp(
+          q,
+          this.q1,
+          this.obj.quaternion,
+          cords.t
+        );
+      }.bind(this))
+      .onComplete(function () {
+        this.tween = undefined;
+      }.bind(this))
+      .start();
+  },
+
+});
 
 //////////////////////////////////////////////////////////////////////
 // L3DI/Inst
