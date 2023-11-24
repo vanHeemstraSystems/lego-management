@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import L3DI from "../lib/L3DI";
 import * as THREE from "three";
 import * as ColladaLoader from "three-collada-loader";
+// import * as THREE_ADDONS from "three-addons"; // Throws error
 import { Tween } from "@tweenjs/tween.js";
 import InstCSV from "../models/instCSV";
 import "./playground.scss";
