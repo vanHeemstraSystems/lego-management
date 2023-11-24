@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import L3DI from "../lib/L3DI";
 import * as THREE from "three";
 import * as ColladaLoader from "three-collada-loader";
+import { Tween } from "@tweenjs/tween.js";
 import InstCSV from "../models/instCSV";
 import "./playground.scss";
 
@@ -31,6 +32,16 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
     useEffect(() => {
         console.log("Start of useEffect()");
 
+        // Functions
+        function setupInst(model, instCSV) {
+            // More ...
+        };
+
+        function setupAction(model) {
+            // MORE ...
+        };
+
+        // On Load
         var modelPath = '../models/lego-azure.dae';
         var instCSV = InstCSV || undefined;
 
@@ -62,22 +73,29 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
         canvas.addLight(light4);
 
         var loader = new ColladaLoader();
-        loader.load(modelPath, function (data:any) {
+        loader.load(modelPath, function (data: any) {
             var model = data.scene;
             model.scale.set(1, 1, 1);
             model.position.set(0, 0, 0);
 
             model.name = ""; // Correspond to instCSV's first line. '[""],'
 
-            // setupInst(model, instCSV);
-            // setupAction(model);
+            setupInst(model, instCSV);
+            setupAction(model);
 
             canvas.addModel(model);
 
             spinner.stop();
         });
 
-        // More
+        /**
+        function renderLoop() {
+            requestAnimationFrame(renderLoop);
+            Tween.update();
+            canvas.render();
+        }
+        renderLoop();
+        */
 
         console.log("End of useEffect()");
     }, []);
