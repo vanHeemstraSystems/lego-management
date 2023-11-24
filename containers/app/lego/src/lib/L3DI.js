@@ -678,4 +678,4 @@ L3DI.setupSpinner = async function (target, color) {
   return spinner;
 }
 
-export default L3DI;
+export default L3DI
