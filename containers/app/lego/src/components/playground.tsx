@@ -34,6 +34,9 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
 
         // Functions
         function setupInst(model, instCSV) {
+            var inst = L3DI.createInst(model, instCSV);
+
+            
             // More ...
         };
 
