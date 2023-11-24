@@ -9,8 +9,8 @@ const ToolContainer = () => {
 
     return (
         <div id="toolContainer" className="toolContainer">
-            <RangeContainer color="color1"/>
-            <RangeContainer color="color2" />
+            <RangeContainer range="A" color="color1"/>
+            <RangeContainer range="B" color="color2" />
             <svg height="0">
                 <defs>
                     <symbol id="icon-plus" viewBox="0 0 32 32">

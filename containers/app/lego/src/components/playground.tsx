@@ -36,7 +36,15 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
         function setupInst(model, instCSV) {
             var inst = L3DI.createInst(model, instCSV);
 
-            
+            var rangeB = document.getElementById("rangeB");
+            rangeB.min = inst.getStepMin();
+            rangeB.max = inst.getStepMax();
+            rangeB.step = inst.getStepStep();
+            rangeB.value = inst.getCurStep();
+            rangeB.addEventListener("input", function (e) {
+               inst.setStep(rangeB.value);
+            }, false)
+
             // More ...
         };
 
