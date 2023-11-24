@@ -5,6 +5,9 @@ import CanvasContainer from "./canvasContainer";
 import ToolContainer from "./toolContainer";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
+import * as THREE from "three";
+import Spinner from "spin";
+import Tween from "@tweenjs/tween.js"
 import "./playground.scss";
 
 type PlaygroundProps = {
@@ -32,11 +35,9 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
     return (
         <>
             <Helmet>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.3.0/Tween.min.js"></script>
+                <script src="../js/L3DI.js"></script>
             </Helmet>
-            Hello from Playground named {props.name}!
+            <p>Hello from Playground named {props.name}!</p>
             <CanvasContainer />
             <ToolContainer />
         </>
