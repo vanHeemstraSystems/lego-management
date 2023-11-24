@@ -32,11 +32,92 @@ L3DI.Canvas = function (domElement, ops) {
         cameraFar: ops.cameraFar || 1000,
         zoomMin: ops.zoomMin || 0.5,
         zoomMax: ops.zoomMax || 3.0,
-        initialRotation: ops.initialRotation || [0,0,0],
+        initialRotation: ops.initialRotation || [0, 0, 0],
     };
-    // More
+    var renderer = new THREE.WebGLRenderer({ alpha: ops.useAlpha });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(container.offsetWidth, container.offsetHeight);
+    renderer.setClearColor(ops.backgroundColor, ops.alpha);
+    renderer.gammaFactor = ops.gammaFactor;
+    renderer.gammaInput = true;
+    renderer.gammaOutput = true;
 
+    var canvas = renderer.domElement;
+    container.appendChild(canvas);
+
+    var camera = new THREE.PerspectiveCamera(
+        ops.fov,
+        canvas.width / canvas.height,
+        ops.cameraNear,
+        ops.cameraFar
+    );
+
+    camera.position.set(0, 0, ops.cameraDistance);
+
+    var scene = new THREE.Scene();
+
+    var modelContainer = new THREE.Object3D();
+    modelContainer.rotation.set(
+        ops.initialRotation[0] * L3DI.DEG2RAD,
+        ops.initialRotation[1] * L3DI.DEG2RAD,
+        ops.initialRotation[2] * L3DI.DEG2RAD
+    );
+    scene.add(modelContainer);
+
+    var controls = new L3DI.MouseControls(modelContainer, container, {
+        zoomMin: ops.zoomMin,
+        zoomMax: ops.zoomMax,
+    });
+
+    window.addEventListener('resize', this.resize.bind(this) );
+
+    //this.canvas = canvas;
+    //this.controls = controls;
+    this._container = container;
+    this._renderer = renderer;
+    this._camera = camera;
+    this._scene = scene;
+    this._modelContainer = modelContainer;
 }
+
+Object.assign( L3DI.Canvas.prototype, {
+    resize: function () {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+  
+      var w = this._container.offsetWidth;
+      var h = this._container.offsetHeight;
+      this._camera.aspect = w / h;
+      this._camera.updateProjectionMatrix();
+  
+      this._renderer.setSize( w, h );
+    },
+  
+    render: function () {
+      this._renderer.render( this._scene, this._camera );
+    },
+  
+    addModel: function ( obj ) {
+      this._modelContainer.add( obj );
+    },
+  
+    addStaticModel: function ( obj ) {
+      this._scene.add( obj );
+    },
+  
+    addLight: function ( obj ) {
+      this.addStaticModel( obj );
+    },
+  
+    setBackgroundColor: function ( color, alpha = 1 ) {
+      this._renderer.setClearColor( color, alpha );
+    },
+  
+    enableShadow: function ( bool ) {
+      this._renderer.shadowMap.enabled = bool;
+    },
+  
+  });
 
 //////////////////////////////////////////////////////////////////////
 // L3DI/mouseControls
