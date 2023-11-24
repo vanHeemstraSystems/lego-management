@@ -5,7 +5,7 @@ import CanvasContainer from "./canvasContainer";
 import ToolContainer from "./toolContainer";
 import { connect } from "react-redux";
 import L3DI from "../lib/L3DI";
-import * as InstCSV from "../models/instCSV";
+import InstCSV from "../models/instCSV";
 import "./playground.scss";
 
 type PlaygroundProps = {

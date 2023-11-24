@@ -1,6 +1,6 @@
 import L3DI from "../lib/L3DI";
 
-L3DI.instCSV = [
+const InstCSV = L3DI.instCSV = [
     [""],
 
     [0, "group", "VNet-Subnet with Symbol"],
@@ -17,4 +17,4 @@ L3DI.instCSV = [
 
 ];
 
-export default L3DI.instCSV
+export default InstCSV
