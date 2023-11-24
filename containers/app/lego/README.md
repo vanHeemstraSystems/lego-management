@@ -10,6 +10,8 @@ Based on "Solve “document is not defined” errors in Next.js" at https://www.
 
 Based on "L3DI.js - Lego 3D Instruction" at https://l3di.netlify.app/
 
+Based on "Lazy Loading" at https://nextjs.org/docs/pages/building-your-application/optimizing/lazy-loading#with-no-ssr
+
 Based on "Floor Planner" at https://www.floorplanner.com who created "ColladaLoader" at https://gist.github.com/funnylookinhat/5155628
 
 Lego-Azure model kept at https://www.mecabricks.com/en/workshop/1XjdrbKKa8b
