@@ -125,7 +125,133 @@ Object.assign(L3DI.Canvas.prototype, {
 //////////////////////////////////////////////////////////////////////
 L3DI.MouseControls = function (object3D, domElement, ops) {
   console.log("Inside L3DI.MouseControls");
-  // MORE ...
+  this.obj = object3D;
+  this.el = domElement || document;
+
+  var ops = ops || {};
+  this.zoomMin = ops.zoomMin || .5;
+  this.zoomMax = ops.zoomMax || 3;
+
+  var scope = this;
+
+  var isMouseDown = false;
+  var isRightButton = false;
+  var oldX = 0;
+  var oldY = 0;
+  var oldL = 0;
+
+  this.el.oncontextmenu = function () { return false; }
+  this.el.addEventListener('mousedown', mouseDown);
+  this.el.addEventListener('mousemove', mouseMove);
+  this.el.addEventListener('mouseup', mouseUp);
+  this.el.addEventListener('touchstart', touchStart);
+  this.el.addEventListener('touchmove', touchMove);
+  this.el.addEventListener('touchend', touchEnd);
+
+  function mouseDown(e) {
+    e.preventDefault();
+    isMouseDown = true;
+    if (e.button != 2) {
+      isRightButton = false;
+      oldX = e.pageX;
+      oldY = e.pageY;
+    } else {
+      isRightButton = true;
+      oldL = e.pageX - e.pageY;
+    }
+  }
+
+  function touchStart(e) {
+    switch (e.touches.length) {
+      case 1:
+        e.preventDefault();
+        isMouseDown = true;
+        oldX = e.changedTouches[0].pageX;
+        oldY = e.changedTouches[0].pageY;
+        break;
+      case 2:
+        e.preventDefault();
+        isMouseDown = true;
+        var dx = e.touches[0].pageX - e.touches[1].pageX;
+        var dy = e.touches[0].pageY - e.touches[1].pageY;
+        //oldL = Math.sqrt( dx * dx + dy * dy );
+        oldL = dx * dx + dy * dy;
+        break;
+    }
+  }
+
+  function mouseMove(e) {
+    if (!isMouseDown) return;
+    e.preventDefault();
+    if (!isRightButton) {
+      setRot(e.pageX, e.pageY);
+    } else {
+      setScale(e.pageX - e.pageY);
+    }
+  }
+
+  function touchMove(e) {
+    if (!isMouseDown) return;
+
+    switch (e.touches.length) {
+      case 1:
+        e.preventDefault();
+        var x = e.changedTouches[0].pageX;
+        var y = e.changedTouches[0].pageY;
+        setRot(x, y);
+        break;
+      case 2:
+        e.preventDefault();
+        var dx = e.touches[0].pageX - e.touches[1].pageX;
+        var dy = e.touches[0].pageY - e.touches[1].pageY;
+        //var l = Math.sqrt( dx * dx + dy * dy );
+        var l = dx * dx + dy * dy;
+        setScale(l);
+        break;
+    }
+  }
+
+  function mouseUp() {
+    isMouseDown = false;
+  }
+
+  function touchEnd() {
+    isMouseDown = false;
+  }
+
+  function setRot(x, y) {
+    var dx = x - oldX;
+    var dy = y - oldY;
+    oldX = x;
+    oldY = y;
+
+    var q = new THREE.Quaternion();
+    var q2 = new THREE.Quaternion();
+    q.setFromAxisAngle(
+      new THREE.Vector3(1, 0, 0),
+      dy * .005
+    );
+    q2.setFromAxisAngle(
+      new THREE.Vector3(0, 1, 0),
+      dx * .005
+    );
+
+    scope.obj.applyQuaternion(q.multiply(q2));
+  }
+
+  function setScale(l) {
+    var dl = l - oldL;
+    oldL = l;
+
+    var s = scope.obj.scale.x;
+    if (dl > 0) {
+      s = Math.min(scope.zoomMax, s * 1.03);
+    } else {
+      s = Math.max(scope.zoomMin, s * .97);
+    }
+
+    scope.obj.scale.set(s, s, s);
+  }
 }
 
 //////////////////////////////////////////////////////////////////////
