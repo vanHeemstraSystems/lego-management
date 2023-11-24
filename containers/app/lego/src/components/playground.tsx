@@ -5,7 +5,7 @@ import CanvasContainer from "./canvasContainer";
 import ToolContainer from "./toolContainer";
 import { connect } from "react-redux";
 import L3DI from "../lib/L3DI";
-import { L3DI.instCSV } from "../models/instCSV";
+import * as InstCSV from "../models/instCSV";
 import "./playground.scss";
 
 type PlaygroundProps = {
@@ -30,7 +30,7 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
         console.log("Start of useEffect()");
 
         var modelPath = '../models/lego-azure.dae';
-        var instCSV = L3DI.instCSV || undefined; // L3DI.instCSV is defined in models/instCSV.js
+        var instCSV = InstCSV || undefined;
 
         // var canvasContainer = document.getElementById("canvasContainer");
         // var spinner = L3DI.setupSpinner(canvasContainer, '#ffffff');
