@@ -247,14 +247,12 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
             spinner.stop();
         });
 
-        /**
         function renderLoop() {
             requestAnimationFrame(renderLoop);
-            Tween.update();
+            // Tween.update(); // ERROR: Tween.update is not a function ??
             canvas.render();
         }
         renderLoop();
-        */
 
         console.log("End of useEffect()");
     }, []);
