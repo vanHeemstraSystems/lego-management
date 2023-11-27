@@ -205,8 +205,8 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
         };
 
         // On Load
-        // var modelPath = '../models/lego-azure.dae';
-        var modelPath = '../models/model.dae';
+        var modelPath = '../models/lego-azure.dae';
+        // var modelPath = '../models/model.dae';
         var instCSV = InstCSV || undefined;
 
         var canvasContainer = document.getElementById("canvasContainer");
