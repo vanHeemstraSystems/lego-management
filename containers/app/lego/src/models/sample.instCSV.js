@@ -14,7 +14,6 @@ const InstCSV = L3DI.instCSV = [
 
     [0, "buildDirection", "y"],
     ["Part.0"],
-
 ];
 
 export default InstCSV
