@@ -12,6 +12,7 @@ import * as THREE from "three";
 import { ColladaLoader } from "../../node_modules/three/examples/jsm/loaders/ColladaLoader.js";
 import { Tween } from "@tweenjs/tween.js";
 import InstCSV from "../models/instCSV";
+import "../../node_modules/spin.js/spin.css";
 import "./playground.scss";
 
 type PlaygroundProps = {
@@ -204,7 +205,8 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
         };
 
         // On Load
-        var modelPath = '../models/lego-azure.dae';
+        // var modelPath = '../models/lego-azure.dae';
+        var modelPath = '../models/model.dae';
         var instCSV = InstCSV || undefined;
 
         var canvasContainer = document.getElementById("canvasContainer");
@@ -247,7 +249,7 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
 
             canvas.addModel(model);
 
-            spinner.stop();
+            spinner.stop(); // spinner.stop is not a function
         });
 
         function renderLoop() {

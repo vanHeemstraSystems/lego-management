@@ -8,6 +8,8 @@
 // [docs]: https://l3di.netlify.com
 // --------------------------------------------------
 import { useState } from 'react';
+// See https://github.com/fgnass/spin.js
+import { Spinner } from 'spin.js';
 import * as THREE from "three";
 import * as THREE_ADDONS from "three-addons";
 // See https://threejs.org/docs/#manual/en/introduction/Installation
@@ -655,7 +657,8 @@ Object.assign(L3DI.Inst.prototype, {
 //////////////////////////////////////////////////////////////////////
 // L3DI/setupSpinner
 //////////////////////////////////////////////////////////////////////
-L3DI.setupSpinner = async function (target, color) {
+// L3DI.setupSpinner = async function (target, color) {
+L3DI.setupSpinner = function (target, color) {
   console.log("Inside L3DI.setupSpinner");
   var opts = {
     lines: 13, // The number of lines to draw
@@ -678,7 +681,7 @@ L3DI.setupSpinner = async function (target, color) {
     position: 'absolute' // Element positioning
   };
 
-  const Spinner = (await import('spin')).default;
+  // const Spinner = (await import('spin')).default;
   var spinner = new Spinner(opts).spin(target);
   return spinner;
 }
