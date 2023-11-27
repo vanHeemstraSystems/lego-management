@@ -8,6 +8,7 @@ import L3DI from "../lib/L3DI";
 import * as THREE from "three";
 // import * as ColladaLoader from "three-collada-loader"; // Throws duplicate use of Three
 // import * as THREE_ADDONS from "three-addons"; // Throws error
+// See https://stackoverflow.com/questions/42434398/how-to-use-threejs-collada-loader-with-typescript-angular-cli
 import { ColladaLoader } from "../../node_modules/three/examples/jsm/loaders/ColladaLoader.js";
 import { Tween } from "@tweenjs/tween.js";
 import InstCSV from "../models/instCSV";
