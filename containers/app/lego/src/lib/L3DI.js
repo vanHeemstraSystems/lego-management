@@ -13,7 +13,7 @@ import * as THREE_ADDONS from "three-addons";
 // See https://threejs.org/docs/#manual/en/introduction/Installation
 // import { SceneUtils } from "three/addons/utils/SceneUtils";
 // See https://threejs.org/docs/#examples/en/utils/SceneUtils
-import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils.js'
+// import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils.js'
 import { Tween } from "@tweenjs/tween.js";
 
 var L3DI = L3DI || { REVISION: "1" };
@@ -293,8 +293,8 @@ L3DI.createInst = function (model, lines) {
         var obj = model.getObjectByName(name);
         if (curGroup.length > 1) {
           var g = curGroup[curGroup.length - 1];
-          //THREE_ADDONS.SceneUtils.attach(obj, model, g); // REMOVE
-          SceneUtils.attach(obj, model, g);
+          THREE_ADDONS.SceneUtils.attach(obj, model, g);
+          // SceneUtils.attach(obj, model, g);
           //obj.updateMatrixWorld();
         }
         var lobj = new L3DI.LegoObj(obj, buildDir);
