@@ -11,9 +11,9 @@ import { useState } from 'react';
 import * as THREE from "three";
 import * as THREE_ADDONS from "three-addons";
 // See https://threejs.org/docs/#manual/en/introduction/Installation
-import { SceneUtils } from "three/addons/utils/SceneUtils";
+// import { SceneUtils } from "three/addons/utils/SceneUtils";
 // See https://threejs.org/docs/#examples/en/utils/SceneUtils
-// import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils.js'
+import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils.js'
 import { Tween } from "@tweenjs/tween.js";
 
 var L3DI = L3DI || { REVISION: "1" };
