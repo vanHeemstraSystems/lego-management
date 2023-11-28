@@ -10,6 +10,8 @@ Based on "Solve “document is not defined” errors in Next.js" at https://www.
 
 Based on "L3DI.js - Lego 3D Instruction" at https://l3di.netlify.app/
 
+Based on "What is DAE(.dae) file format?" at https://medium.com/@su_bak/what-is-dae-dae-file-format-5f671aeae3eb
+
 Based on "Lazy Loading" at https://nextjs.org/docs/pages/building-your-application/optimizing/lazy-loading#with-no-ssr
 
 Based on "Floor Planner" at https://www.floorplanner.com who created "ColladaLoader" at https://gist.github.com/funnylookinhat/5155628
