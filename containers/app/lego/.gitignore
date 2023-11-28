@@ -33,3 +33,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# models
+/lego/public/models/model.dae
+/lego/src/models/instCSV.js
