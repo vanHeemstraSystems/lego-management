@@ -1,6 +1,4 @@
-import L3DI from "../lib/L3DI";
-
-const InstCSV = L3DI.instCSV = [
+export const InstCSV = [
     [""],
 
     [0, "group", "VNet-Subnet with Symbol"],
@@ -15,5 +13,3 @@ const InstCSV = L3DI.instCSV = [
     [0, "buildDirection", "y"],
     ["Part.0"],
 ];
-
-export default InstCSV
