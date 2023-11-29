@@ -11,7 +11,7 @@ import * as THREE from "three";
 // See https://stackoverflow.com/questions/42434398/how-to-use-threejs-collada-loader-with-typescript-angular-cli
 import { ColladaLoader } from "../../node_modules/three/examples/jsm/loaders/ColladaLoader.js";
 import { Tween } from "@tweenjs/tween.js";
-import * as InstCSV from "../models/instCSV.tsx";
+import { InstCSV } from "../models/instCSV.js";
 import "../../node_modules/spin.js/spin.css";
 import "./playground.scss";
 

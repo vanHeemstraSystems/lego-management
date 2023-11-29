@@ -1,5 +1,4 @@
-// @ts-ignore
-var MYAPP.instCSV: any = [
+export const InstCSV = [
     [""],
 
     ["Part_3032.1"],
@@ -44,5 +43,3 @@ var MYAPP.instCSV: any = [
     [0, "translate", "house", 10],
 
 ];
-
-export default MYAPP.instCSV;
