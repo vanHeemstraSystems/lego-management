@@ -63,6 +63,9 @@ L3DI.Canvas = function (domElement, ops) {
 
   var scene = new THREE.Scene();
 
+  // Added by wvh
+  L3DI.Scene = scene;
+
   var modelContainer = new THREE.Object3D();
   modelContainer.rotation.set(
     ops.initialRotation[0] * L3DI.DEG2RAD,
@@ -299,7 +302,7 @@ L3DI.createInst = function (model, lines) {
           // See https://stackoverflow.com/questions/23385623/three-js-proper-way-to-add-and-remove-child-objects-using-three-sceneutils-atta/48919815#48919815
           // SceneUtils.attach/detach has been deprecatd since Three.js r105. One should use Object3D's attach() method directly:
           // SceneUtils.attach(obj, model, g); DEPRECATED
-          this._scene.attach(obj. model, g);
+          L3DI.Scene.attach(obj, model, g); // Use previousely defined L3DI.Scene
           //obj.updateMatrixWorld();
         }
         var lobj = new L3DI.LegoObj(obj, buildDir);
@@ -384,7 +387,7 @@ L3DI.createInst = function (model, lines) {
           // See https://stackoverflow.com/questions/23385623/three-js-proper-way-to-add-and-remove-child-objects-using-three-sceneutils-atta/48919815#48919815
           // SceneUtils.attach/detach has been deprecatd since Three.js r105. One should use Object3D's attach() method directly:
           // SceneUtils.attach(obj, model, g); DEPRECATED
-          this._scene.attach(obj. model, g);
+          L3DI.Scene.attach(obj, model, g); // Use previously defined L3DI.Scene
           //obj.updateMatrixWorld();
         });
         break;
