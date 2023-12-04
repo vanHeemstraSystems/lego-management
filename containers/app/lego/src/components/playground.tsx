@@ -10,7 +10,7 @@ import * as THREE from "three";
 // import * as THREE_ADDONS from "three-addons"; // Throws error
 // See https://stackoverflow.com/questions/42434398/how-to-use-threejs-collada-loader-with-typescript-angular-cli
 import { ColladaLoader } from "../../node_modules/three/examples/jsm/loaders/ColladaLoader";
-// REMOVE import * as TWEEN from "@tweenjs/tween.js";
+import * as TWEEN from "@tweenjs/tween.js";
 import { InstCSV } from "../models/instCSV.js";
 import "../../node_modules/spin.js/spin.css";
 import "./playground.scss";
@@ -254,7 +254,7 @@ const Playground = (props: PlaygroundProps, state: PlaygroundState) => {
 
         function renderLoop() {
             requestAnimationFrame(renderLoop);
-            // Tween.update(); // ERROR: Tween.update is not a function ??
+            TWEEN.update(); // ERROR: Tween.update is not a function ??
             canvas.render();
         }
         renderLoop();
