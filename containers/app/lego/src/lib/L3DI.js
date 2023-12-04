@@ -13,7 +13,7 @@ import { Spinner } from 'spin.js';
 import * as THREE from "three";
 import * as THREE_ADDONS from "three-addons";
 // See https://threejs.org/docs/#manual/en/introduction/Installation
-// import { SceneUtils } from "three/addons/utils/SceneUtils";
+import { SceneUtils } from "three/addons/utils/SceneUtils";
 // See https://threejs.org/docs/#examples/en/utils/SceneUtils
 // import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils.js'
 import { Tween } from "@tweenjs/tween.js";
@@ -295,8 +295,11 @@ L3DI.createInst = function (model, lines) {
         var obj = model.getObjectByName(name);
         if (curGroup.length > 1) {
           var g = curGroup[curGroup.length - 1];
-          THREE_ADDONS.SceneUtils.attach(obj, model, g);
-          // SceneUtils.attach(obj, model, g);
+          // THREE_ADDONS.SceneUtils.attach(obj, model, g); WRONG, SceneUtils should be referenced directly
+          // See https://stackoverflow.com/questions/23385623/three-js-proper-way-to-add-and-remove-child-objects-using-three-sceneutils-atta/48919815#48919815
+          // SceneUtils.attach/detach has been deprecatd since Three.js r105. One should use Object3D's attach() method directly:
+          // SceneUtils.attach(obj, model, g); DEPRECATED
+          this._scene.attach(obj. model, g);
           //obj.updateMatrixWorld();
         }
         var lobj = new L3DI.LegoObj(obj, buildDir);
@@ -377,7 +380,11 @@ L3DI.createInst = function (model, lines) {
         line.slice(2).forEach(function (name) {
           var obj = model.getObjectByName(name);
           var g = curGroup[curGroup.length - 1];
-          THREE_ADDONS.SceneUtils.attach(obj, model, g);
+          // THREE_ADDONS.SceneUtils.attach(obj, model, g); WRONG, SceneUtils should be referenced directly
+          // See https://stackoverflow.com/questions/23385623/three-js-proper-way-to-add-and-remove-child-objects-using-three-sceneutils-atta/48919815#48919815
+          // SceneUtils.attach/detach has been deprecatd since Three.js r105. One should use Object3D's attach() method directly:
+          // SceneUtils.attach(obj, model, g); DEPRECATED
+          this._scene.attach(obj. model, g);
           //obj.updateMatrixWorld();
         });
         break;
