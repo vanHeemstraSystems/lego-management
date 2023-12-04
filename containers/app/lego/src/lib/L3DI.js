@@ -274,7 +274,7 @@ L3DI.createInst = function (model, lines) {
       lines.push([obj.name]);
     });
     console.log(
-      'L3DI.instCSV = [\n'
+      'export const InstCSV = [\n'
       + '[0, "buildDir", 0,1,0 ],\n'
       + '["'
       + lines.join('"],\n["')
