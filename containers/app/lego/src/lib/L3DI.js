@@ -16,7 +16,7 @@ import * as THREE from "three";
 // REMOVE import { SceneUtils } from "three/addons/utils/SceneUtils";
 // REMOVE See https://threejs.org/docs/#examples/en/utils/SceneUtils DEPRECTAED
 // REMOVE import { SceneUtils } from 'three/examples/jsm/utils/SceneUtils.js'
-import { Tween } from "@tweenjs/tween.js";
+import * as TWEEN from "@tweenjs/tween.js";
 
 var L3DI = L3DI || { REVISION: "1" };
 
@@ -465,10 +465,10 @@ Object.assign(L3DI.LegoObj.prototype, {
   playForward: function () {
     if (this.tween) this.tween.stop();
     this.obj.visible = true;
-    this.tween = new Tween.Tween(this.obj.position)
+    this.tween = new TWEEN.Tween(this.obj.position)
       .to(this.pos0, 1000)
-      //.easing( Tween.Easing.Bounce.Out )
-      .easing(Tween.Easing.Quadratic.Out)
+      //.easing( TWEEN.Easing.Bounce.Out )
+      .easing(TWEEN.Easing.Quadratic.Out)
       .onComplete(function () {
         this.tween = undefined;
       }.bind(this))
@@ -477,9 +477,9 @@ Object.assign(L3DI.LegoObj.prototype, {
 
   playBackward: function () {
     if (this.tween) this.tween.stop();
-    this.tween = new Tween.Tween(this.obj.position)
+    this.tween = new TWEEN.Tween(this.obj.position)
       .to(this.pos1, 300)
-      .easing(Tween.Easing.Linear.None)
+      .easing(TWEEN.Easing.Linear.None)
       .onComplete(function () {
         this.tween = undefined;
         this.obj.visible = false;
@@ -530,9 +530,9 @@ Object.assign(L3DI.Step_translate.prototype, {
 
   playForward: function () {
     if (this.tween) this.tween.stop();
-    this.tween = new Tween.Tween(this.obj.position)
+    this.tween = new TWEEN.Tween(this.obj.position)
       .to(this.pos0, 800)
-      .easing(Tween.Easing.Quadratic.Out)
+      .easing(TWEEN.Easing.Quadratic.Out)
       .onComplete(function () {
         this.tween = undefined;
       }.bind(this))
@@ -541,9 +541,9 @@ Object.assign(L3DI.Step_translate.prototype, {
 
   playBackward: function () {
     if (this.tween) this.tween.stop();
-    this.tween = new Tween.Tween(this.obj.position)
+    this.tween = new TWEEN.Tween(this.obj.position)
       .to(this.pos1, 300)
-      .easing(Tween.Easing.Quadratic.Out)
+      .easing(TWEEN.Easing.Quadratic.Out)
       .onComplete(function () {
         this.tween = undefined;
       }.bind(this))
@@ -570,9 +570,9 @@ Object.assign(L3DI.Step_rotate.prototype, {
     if (this.tween) this.tween.stop();
     var q = this.obj.quaternion.clone();
     var cords = { t: 0 };
-    this.tween = new Tween.Tween(cords)
+    this.tween = new TWEEN.Tween(cords)
       .to({ t: 1 }, 800)
-      .easing(Tween.Easing.Quadratic.Out)
+      .easing(TWEEN.Easing.Quadratic.Out)
       .onUpdate(function () {
         THREE.Quaternion.slerp(
           q,
@@ -591,9 +591,9 @@ Object.assign(L3DI.Step_rotate.prototype, {
     if (this.tween) this.tween.stop();
     var q = this.obj.quaternion.clone();
     var cords = { t: 0 };
-    this.tween = new Tween.Tween(cords)
+    this.tween = new TWEEN.Tween(cords)
       .to({ t: 1 }, 800)
-      .easing(Tween.Easing.Quadratic.Out)
+      .easing(TWEEN.Easing.Quadratic.Out)
       .onUpdate(function () {
         THREE.Quaternion.slerp(
           q,
